@@ -1,0 +1,56 @@
+﻿@using PagedList.Mvc;
+@using Repository.Models
+@model PagedList.IPagedList<Repository.Models.Event>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "HorseInfo";
+}
+@*TODO dodaj nowe można by przenieść do menu *@
+<p>
+    @Html.ActionLink("Dodaj nowe ogłoszenie", "Create","Event", null, new { @class = "ui-btn ui-corner-all ui-btn-inline" })
+</p>
+<form class="ui-filterable">
+    <input id="filter-input" data-type="search" />
+</form>
+<ul data-role="listview" data-inset="true" data-filter="true" data-input="#filter-input" data-autodividers="true">
+    @foreach (Event item in Model)
+    {
+        <li>
+            <a href="@Url.Action("Details","Event", new {id = item.Id})">
+                <img src="@Url.Content("~/Content/no_image.png")" />
+                <h3>@item.Title</h3>
+                <p> @item.Date</p>
+                <p>
+                    <strong>
+                        @item.User.Company.CompanyAddress
+                    </strong>
+                </p>
+                <p style="white-space:normal">@item.UserId</p>
+            </a>
+        </li>
+    }
+</ul>
+
+
+<div>
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
+
+
+@section Menu
+    {
+    <a href="#popupMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-btn-left ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Menu</a>
+
+    <div data-role="popup" id="popupMenu" data-theme="b" class="aaa">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider">Wybierz kategorię:</li>
+            <li>@Html.ActionLink("Ujeżdżenie", "Index", new { categoryId = 1 })</li>
+            <li><a href="#">Skoki</a></li>
+            <li><a href="#">WKKW</a></li>
+            <li><a href="#">Powożenie</a></li>
+        </ul>
+    </div>
+}

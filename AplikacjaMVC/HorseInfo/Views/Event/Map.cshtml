@@ -1,0 +1,57 @@
+﻿@model Repository.Models.Event
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Map</title>
+
+
+    <script>
+    function initialize() {
+        var myLatlng = new google.maps.LatLng( @Model.User.Company.Lattitude, @Model.User.Company.Longitude );
+            var myOptions = {
+                zoom: 10,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map( document.getElementById( "map_canvas" ), myOptions );
+
+            var point  = new google.maps.LatLng(@Model.User.Company.Lattitude,@Model.User.Company.Longitude);
+            var markerOptions =
+            {
+                position: point,
+                map: map,
+                title: "Tu jesteśmy"
+            }
+            var marker = new google.maps.Marker(markerOptions);
+        }
+    </script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <style>
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #map_canvas {
+            height: 100%;
+        }
+    </style>
+</head>
+<body onload="initialize()">
+
+    <div id="map_canvas"></div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @*<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">*@
+    @*<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    @*<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>*@
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">@*, initial-scale=1.0*@
+    <title>@ViewBag.Title  Horseinfo</title>
+   
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    $(function () {
+        $("[data-role='header'], [data-role='footer']").toolbar();   // służy do wstawienie headera i footera "na miejsce"
+    });
+    </script>
+     @*
+    @Scripts.Render("~/Content/jQueryTheme/external/jquery/jquery.js")
+    @Scripts.Render("~/Content/jQueryTheme/jquery-ui.min.js")
+    *@
+   
+     @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+
+    <body>
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <h1>@Html.ActionLink("HorseInfo", "Index", "Home", null, new { style = "text-decoration:none" })</h1>
+            @RenderSection("Menu", required: false)
+            @Html.Partial("_LoginPopup", new Repository.Models.LoginViewModel())
+        </div><!-- /header -->
+
+
+    <div data-role="page" data-theme="b">
+        <div role="main" class="ui-content jqm-content jqm-fullwidth">
+            @RenderBody()
+            <hr />
+        </div>
+        
+
+    </div> <!-- page -->
+
+    @*<div data-role="footer" data-position="fixed">
+        <h1>Footer</h1>
+    </div> <!-- footer -->*@
+    
+    @RenderSection("scripts", required: false)
+
+  
+
+    </body>
+        
+    </html>

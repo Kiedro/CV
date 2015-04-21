@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNet.Identity;
+@model Repository.Models.Views.EventDetailsViewModel
+
+@{
+    ViewBag.Description = "Jakiś opis detali " + Model.ev.Id;
+    ViewBag.KeyWords = "Jakieś, słowa, kluczowe " + Model.ev.Id;
+}
+
+<div data-role="navbar">
+    <ul>
+        <li>@Html.ActionLink("Informacje", "Details", @Model.ev.Id, new { @class = "ui-btn-active" })</li>
+        <li>@Html.ActionLink("Organizator", "Organizer", new { id = Model.ev.Id }, null)</li>
+    </ul>
+</div> @*navbar*@
+
+<br />
+
+<div>
+    <div class="eventfield">
+        <h3 id="modelTitle">
+            @Html.DisplayFor(model => model.ev.Title)
+        </h3>
+
+        <hr />
+        <p>@Html.DisplayFor(model => model.ev.Date)</p>
+        <p>@Html.DisplayFor(model => model.ev.User.Company.CompanyAddress)</p>
+        <p>@Html.DisplayFor(model => model.ev.Description)sratatataaaaaaaaaaaaaa aaaaaaaaaatttaaaaaaaaaaaaa</p>
+        <p class="dateright">
+            @Html.DisplayNameFor(model => model.ev.CreationDate)
+            @Html.DisplayFor(model => model.ev.CreationDate)
+        </p>
+    </div>
+
+    <br />
+
+    <div class="eventfield">
+        <table>
+            <tr>
+                <td>
+                    <button type="button" onclick=" location.href='@Url.Action("Index", "Home", null)' " class=" ui-btn eventbut">
+                        Wyniki
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick=" location.href='@Url.Action("Index", "Home", null)' " class=" ui-btn eventbut">
+                        Program
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <h4>Komunikaty</h4>
+
+
+
+    <div class="eventfield">
+        <ul data-role="listview" class="eventfield">
+            @foreach (var item in Model.Annoucements)
+            {
+                <li style="white-space:normal">
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Content)
+                    kghhhhhhhhhhhhhhhhhhhhhhhhhhfyyyy
+                    yyyyyyyyyyyyyyyyyyyyyyyyyuuuuuuuuu
+
+                    <p class="ui-li-aside">@Html.DisplayFor(modelItem => item.CreationDate)</p>
+                </li>
+                <br />
+            }
+        </ul>
+    </div>
+</div>
+<p>
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker") || Model.ev.UserId == User.Identity.GetUserId()))
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ev.Id }, new { @class = "btn btn-primary" })
+        @: |
+    }
+    @Html.ActionLink("Wróć", "Index", "Home", new { data_rel = "back" })
+</p>
+
+
+
+
+
+@*<dl >
+        <dt>
+            @Html.DisplayNameFor(model => model.ev.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ev.User.UserName)
+        </dd>
+    </dl>*@
